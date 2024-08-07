@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package api;
+option go_package = ".;api";
+
+service KotfApi {
+  rpc Init(TerraformInitRequest) returns (KotfResult){}
+  rpc Apply(TerraformApplyRequest) returns (KotfResult){}
+  rpc Destroy(TerraformDestroyRequest) returns (KotfResult){}
+}
+
+message KotfResult {
+  bool success = 1;
+  string msg = 2;
+  string output = 3;
+}
+
+message TerraformInitRequest {
+  string clusterName = 1;
+  string type = 2;
+  string cloudRegion = 3;
+  string hosts = 4;
+  string provider = 5;
+}
+
+message TerraformApplyRequest {
+  string clusterName = 1;
+  string type = 2;
+  string cloudRegion = 3;
+}
+
+message TerraformDestroyRequest {
+  string clusterName = 1;
+  string type = 2;
+  string cloudRegion = 3;
+}
